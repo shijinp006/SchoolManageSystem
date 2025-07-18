@@ -13,7 +13,7 @@ const Createstudent = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    if (typeof phonenumber !== 'string' || !/^\d{10}$/.test(phonenumber)) {
+    if (/^\d{10}$/.test(phonenumber)) {
       return res.status(400).json({ message: "Phone number must be a 10-digit number" });
     }
 
@@ -67,12 +67,12 @@ const Editstudent = async (req, res) => {
   try {
     console.log("Check Edit Student");
 
-    const { id } = req.params; // Student ID from URL
+    const  {id}  = req.params.id; // Student ID from URL
     const { role } = req.query; // Role from query (e.g., ?role=admin)
     const { name, grade, age, address, phonenumber } = req.body;
 
     console.log("Requested by role:", role);
-    console.log(id);
+    console.log(id,"recievd id");
     
 
    

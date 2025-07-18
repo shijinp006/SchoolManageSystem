@@ -33,7 +33,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { id: admin._id, email: admin.email, role: 'admin' },
       JWT_SECRET,
-      { expiresIn: '1d' } // token valid for 1 day
+      
     );
     console.log(token,"token");
     

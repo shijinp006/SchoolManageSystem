@@ -31,7 +31,8 @@ const adminSchema = new mongoose.Schema({
     default: 'staff',
   },
   Permissionstatus :{
-    type :String
+    type :String,
+    default :"granted",
   }
 });
 

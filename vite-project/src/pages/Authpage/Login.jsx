@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { Box, Button, Paper, Typography, TextField } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+
+  const navigate = useNavigate()
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +33,7 @@ export const LoginForm = () => {
         toast.success('Login successful!', {
           theme: 'colored',
         });
+        navigate("/home")
        
       } else {
         
@@ -53,128 +58,144 @@ export const LoginForm = () => {
     }
   };
 
-   return (
-    <Box
+  return (
+  <Box
+    sx={{
+      minHeight: '100vh',
+      width: '100vw',
+      bgcolor: '#f1f8e9', // ✅ Match dashboard background
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      p: 2,
+    }}
+  >
+    <Paper
+      elevation={3}
       sx={{
-        minHeight: '100vh',
-        width: '100vw', // Ensures the Box takes the full viewport width
-        bgcolor: '#ffffff', // Changed: Main background color is now white
-        display: 'flex',
-        justifyContent: 'center', // Centers children horizontally
-        alignItems: 'center',   // Centers children vertically
-        p: 2, // Padding around the login form, ensures space on very small screens
+        p: { xs: 3, sm: 4 },
+        width: {
+          xs: '90%',
+          sm: 400,
+          md: 450,
+        },
+        maxWidth: '500px',
+        backgroundColor: '#5c605cff', // Form background color (blue)
+        borderRadius: '8px',
+        boxSizing: 'border-box',
       }}
     >
-      <Paper
-        elevation={3}
-        sx={{
-          p: { xs: 3, sm: 4 }, // Responsive padding inside the paper
-          width: {
-            xs: '90%', // Use a percentage for xs to ensure some margin on very small screens
-            sm: 400,    // 400px width on small screens and up
-            md: 450,    // Slightly wider on medium screens and up
-          },
-          maxWidth: '500px', // Set a maximum width to prevent it from becoming too wide on large screens
-          backgroundColor: '#245996ff', // Changed: Form background color is now blue
-          borderRadius: '8px', // Slightly rounded corners for the paper
-          boxSizing: 'border-box', // Include padding and border in the element's total width and height
-        }}
+      <Typography
+        variant="h5"
+        align="center"
+        gutterBottom
+        fontWeight="bold"
+        sx={{ mb: 3, color: '#fff' }} // ✅ White title for contrast
       >
-        <Typography variant="h5" align="center" gutterBottom fontWeight="bold" sx={{ mb: 3 }}>
-          Login
-        </Typography>
+        Login
+      </Typography>
 
-        <form onSubmit={handleSubmit}>
-          <Box sx={{ mb: 2 }}>
-            <Typography component="label" htmlFor="email" sx={{ fontWeight: 'bold', display: 'block', mb: 0.5, color: '#ffffff' }}> {/* Added color for label */}
-              Email
-            </Typography>
-            <TextField
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              fullWidth
-              variant="outlined"
-              size="medium"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: '#e0e0e0', // Grey background for the input field
-                  '& fieldset': {
-                    borderColor: '#ccc', // Border color
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#999', // Hover border color
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#3c5bdaff', // Focus border color matching button
-                  },
-                },
-                '& .MuiInputBase-input': {
-                  py: 1.25, // Adjust vertical padding for input text
-                  color: '#333333' // Added color for input text for contrast with light background
-                }
-              }}
-            />
-          </Box>
-
-          <Box sx={{ mb: 3 }}>
-            <Typography component="label" htmlFor="password" sx={{ fontWeight: 'bold', display: 'block', mb: 0.5, color: '#ffffff' }}> {/* Added color for label */}
-              Password
-            </Typography>
-            <TextField
-              id="password"
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              fullWidth
-              variant="outlined"
-              size="medium"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: '#e0e0e0', // Grey background for the input field
-                  '& fieldset': {
-                    borderColor: '#ccc', // Border color
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#999', // Hover border color
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#3c5bdaff', // Focus border color matching button
-                  },
-                },
-                '& .MuiInputBase-input': {
-                  py: 1.25, // Adjust vertical padding for input text
-                  color: '#333333' // Added color for input text
-                }
-              }}
-            />
-          </Box>
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
+      <form onSubmit={handleSubmit}>
+        {/* Email Field */}
+        <Box sx={{ mb: 2 }}>
+          <Typography
+            component="label"
+            htmlFor="email"
             sx={{
-              bgcolor: '#5072e0ff', // Blue background for the button
-              color: '#fff',     // White text color
               fontWeight: 'bold',
-              py: 1.5,          // Vertical padding
-              fontSize: '16px',
-              borderRadius: '5px', // Slightly rounded corners for the button
-              '&:hover': {
-                bgcolor: '#200e96ff', // Darker blue on hover
-              },
+              display: 'block',
+              mb: 0.5,
+              color: '#ffffff',
             }}
           >
-            LOG IN
-          </Button>
-        </form>
-      </Paper>
-    </Box>
-  );
+            Email
+          </Typography>
+          <TextField
+            id="email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            fullWidth
+            variant="outlined"
+            size="medium"
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: '#e0e0e0',
+                '& fieldset': { borderColor: '#ccc' },
+                '&:hover fieldset': { borderColor: '#999' },
+                '&.Mui-focused fieldset': { borderColor: '#4caf50' },
+              },
+              '& .MuiInputBase-input': {
+                py: 1.25,
+                color: '#333333',
+              },
+            }}
+          />
+        </Box>
+
+        {/* Password Field */}
+        <Box sx={{ mb: 3 }}>
+          <Typography
+            component="label"
+            htmlFor="password"
+            sx={{
+              fontWeight: 'bold',
+              display: 'block',
+              mb: 0.5,
+              color: '#ffffff',
+            }}
+          >
+            Password
+          </Typography>
+          <TextField
+            id="password"
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            fullWidth
+            variant="outlined"
+            size="medium"
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: '#e0e0e0',
+                '& fieldset': { borderColor: '#ccc' },
+                '&:hover fieldset': { borderColor: '#999' },
+                '&.Mui-focused fieldset': { borderColor: '#4caf50' },
+              },
+              '& .MuiInputBase-input': {
+                py: 1.25,
+                color: '#333333',
+              },
+            }}
+          />
+        </Box>
+
+        {/* Login Button */}
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{
+            bgcolor: '#4caf50',
+            color: '#fff',
+            fontWeight: 'bold',
+            py: 1.5,
+            fontSize: '16px',
+            borderRadius: '5px',
+            '&:hover': {
+              bgcolor: '#4caf50',
+            },
+          }}
+        >
+          LOG IN
+        </Button>
+      </form>
+    </Paper>
+  </Box>
+);
+
 };
