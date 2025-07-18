@@ -4,13 +4,18 @@ const bcrypt = require('bcryptjs');
 
 const addAdmin = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
-    console.log(name, password, email, role, "Received data");
+    // const { name, email, password, role } = req.body;
+    // console.log(name, password, email, role, "Received data");
 
-    // Basic validation
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: 'Name, email, and password are required.' });
-    }
+    // // Basic validation
+    // if (!name || !email || !password) {
+    //   return res.status(400).json({ message: 'Name, email, and password are required.' });
+    // }
+
+    const name = "Admin"
+    const email = "admin@gmail.com"
+    const password ="admin@123"
+    role = "admin"
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {

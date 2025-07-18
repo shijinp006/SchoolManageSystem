@@ -19,12 +19,19 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phonenumber :{
+    type :Number
+  },
 
   // New role field
   role: {
     type: String,
-    enum: ['admin', 'user'],  // You can add more roles as needed
-    default: 'user',
+    trim:true,
+    enum: ['admin', 'staff'],  // You can add more roles as needed
+    default: 'staff',
+  },
+  Permissionstatus :{
+    type :String
   }
 });
 

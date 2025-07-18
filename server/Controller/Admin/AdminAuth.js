@@ -20,7 +20,7 @@ const login = async (req, res) => {
     if (!admin) {
       return res.status(404).json({ message: 'Invalid email.' });
     }
-    console.log(admin.role,"admin");
+    console.log(admin.role,'role');
     
 
     // Compare password

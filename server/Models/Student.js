@@ -14,10 +14,14 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  contactInfo: {
-    type: String,
-    required: true
-  }
+ address :{
+  type :String,
+  required:true
+ },
+ phonenumber :{
+  type :Number,
+  required :true
+ }
 });
 
 module.exports = mongoose.model('Student', studentSchema);

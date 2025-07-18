@@ -23,38 +23,29 @@ export const LoginForm = () => {
       // Store token
       localStorage.setItem('token', token);
 
-      // --- Start of improved if condition for toast ---
+      
       if (response && response.status === 200) { // Check for successful response status
         // Success Toast
         toast.success('Login successful!', {
-          // position: 'top-right', // Removed as per your provided code
-          // autoClose: 3000,     // Removed as per your provided code
           theme: 'colored',
         });
-        // Optionally, redirect the user after a successful login and toast
-        // Example: navigate('/dashboard'); // If you are using react-router-dom's useNavigate hook
+       
       } else {
-        // This 'else' block might catch non-200 successful responses,
-        // though typically Axios throws an error for non-2xx status codes.
-        // It's good for explicit handling if your backend sends successful
-        // but non-200 status codes for certain scenarios.
+        
         toast.warn(response.data?.message || 'Login completed with an unexpected status.', {
-          // position: 'top-right', // Removed as per your provided code
-          // autoClose: 3000,     // Removed as per your provided code
+         
           theme: 'colored',
         });
       }
-      // --- End of improved if condition for toast ---
+      
 
       console.log('Form Data:', formData);
     } catch (error) {
-      // The 'catch' block inherently handles errors, including network errors
-      // and HTTP status codes outside of 2xx.
+      
 
       // Error Toast
       toast.error(error.response?.data?.message || 'Login failed. Please check your credentials.', { // More descriptive default message
-        // position: 'top-right', // Removed as per your provided code
-        // autoClose: 3000,     // Removed as per your provided code
+       
         theme: 'colored',
       });
 
