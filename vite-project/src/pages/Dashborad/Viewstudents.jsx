@@ -28,13 +28,15 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  Stack
  
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SchoolIcon from "@mui/icons-material/School";
 import GroupIcon from "@mui/icons-material/Group";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
+import { Loader } from '../../Context/LoaderContext.jsx';
 import {
   fetchStudents,
   deleteStudent,
@@ -49,9 +51,10 @@ export const ViewStudent = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [studentDate,setStudentdata] = useState([])
+  const [studentData,setStudentdata] = useState([])
   const [editform,setEditform] = useState(false)
-   const [studentId, setStudentId] = useState(null);
+  const [studentId, setStudentId] = useState(null);
+  const { showLoader, hideLoader } = Loader();
 
    const [formData, setFormData] = useState({
     name: '',
@@ -72,7 +75,18 @@ export const ViewStudent = () => {
   };
 
    const dispatch = useDispatch();
-  const { list, loading } = useSelector((state) => state.students);
+     // const { list, loading } = useSelector((state) => state.students);
+
+   //Get Token
+   const token = localStorage.getItem("token")
+
+   useEffect(() => {
+       showLoader();
+       setTimeout(() => {
+         hideLoader();
+       }, 2000); // simulate loading
+     }, []);
+
   
  useEffect(() => {
   const fetchData = async () => {
@@ -82,7 +96,7 @@ export const ViewStudent = () => {
     }
   };
   fetchData();
-}, [dispatch]);
+}, [dispatch,showLoader]);
 
 
 const handleChange = (e) => {
@@ -92,11 +106,19 @@ const handleChange = (e) => {
   const handleEdit = (id) =>{
     setStudentId(id)
     setEditform(true)
+     showLoader();
+       setTimeout(() => {
+         hideLoader();
+       }, 2000); // simulate loading
   }
 
   
 
  const handleDelete = (id) => {
+   showLoader();
+       setTimeout(() => {
+         hideLoader();
+       }, 2000); // simulate loading
   const confirmDelete = window.confirm('Are you sure you want to delete this student?');
   if (confirmDelete) {
     dispatch(deleteStudent(id));
@@ -107,15 +129,26 @@ const handleChange = (e) => {
   const handleUpdate = (e) => {
   e.preventDefault(); // Prevent form refresh on submit
 
-  console.log(studentId, "studentId122");
+  
 
   const updatedData = formData;
-  dispatch(updateStudent({ id: studentId, data: updatedData }));
+  dispatch(updateStudent({ id: studentId, data: updatedData })).unwrap();
 
   // Optionally close the dialog and reset form
   setEditform(false);
+  setFormData({name:"",age:"",grade:"",address:"",phonenumber:""})
+   showLoader();
+       setTimeout(() => {
+         hideLoader();
+       }, 2000); // simulate loading
 };
- const fullScreen = useMediaQuery(theme.breakpoints.down("sm")); // For small screens
+useEffect(()=>{
+      if(!token){
+        window.location.href="/"
+      }
+    },[])
+
+ 
 
 
   const drawer = (
@@ -132,11 +165,11 @@ const handleChange = (e) => {
 
         
 
-        <ListItemButton component={Link} to="/viewstaff">
+        {role === "admin" &&<ListItemButton component={Link} to="/viewstaff">
           <ListItemIcon><GroupIcon /></ListItemIcon>
-        {role === "admin" && <ListItemText primary="View Staff" />}
+         <ListItemText primary="View Staff" />
 
-        </ListItemButton>
+        </ListItemButton>}
       </List>
     </Box>
   );
@@ -144,9 +177,9 @@ const handleChange = (e) => {
   
   return (
     
-    <Box sx={{ display: "flex", width: "100%" }}>
+  <Box sx={{ display: "flex", width:isMobile?"370px": "100%" }}>
       
-      <CssBaseline />
+    <CssBaseline />
 
       {/* AppBar on mobile */}
       {isMobile && (
@@ -215,7 +248,7 @@ const handleChange = (e) => {
             gutterBottom
             sx={{ color: "#2e7d32" }}
           >
-            Students List
+            STUDENTS LIST
           </Typography>
 
           <TableContainer component={Paper} sx={{ borderRadius: 3, boxShadow: 3 }}>
@@ -232,7 +265,16 @@ const handleChange = (e) => {
     </TableRow>
   </TableHead>
   <TableBody>
-    {studentDate.map((student, index) => (
+    {studentData.length === 0 ? (
+  // Display this message when studentData is empty
+ <Typography variant="body1" sx={{ mt: 2, textAlign: 'center' }}>
+    No students to display.
+  </Typography>
+) : (
+  // Display the table rows when studentData has members
+  // This should be placed inside your <tbody> or equivalent table body component
+  <>
+    {studentData.map((student, index) => (
       <TableRow key={student._id}>
         <TableCell>{index + 1}</TableCell>
         <TableCell>{student.name}</TableCell>
@@ -241,110 +283,122 @@ const handleChange = (e) => {
         <TableCell>{student.phonenumber}</TableCell>
         <TableCell>{student.grade}</TableCell>
         <TableCell>
-          <Button 
-            variant="outlined" 
-            color="primary" 
-            size="small" 
+          <Stack direction={isMobile ? "column" : "row"} 
+           spacing={isMobile ? 0.5 : 1} >
+          <Button
+            variant="outlined"
+            color="primary"
+            size="small"
             onClick={() => handleEdit(student._id)}
             sx={{ marginRight: 1 }}
           >
             Edit
           </Button>
-          <Button 
-            variant="outlined" 
-            color="error" 
-            size="small" 
+          <Button
+            variant="outlined"
+            color="error"
+            size="small"
             onClick={() => handleDelete(student._id)}
           >
             Delete
           </Button>
+          </Stack>
         </TableCell>
+        
       </TableRow>
     ))}
+  </>
+)}
   </TableBody>
 </Table>
 
           </TableContainer>
         </Box>
       </Box>
-      {editform && (
-      <Dialog
-        open={editform}
-        onClose={() => setEditform(false)}
-        fullScreen={fullScreen}
-        fullWidth
-        maxWidth="sm" // Responsive width
-        scroll="paper"
-        PaperProps={{
-          sx: {
-            p: 2,
-            borderRadius: 2,
-            maxHeight: "90vh",
-            width: "100%", // Ensure full width inside maxWidth
-          },
-        }}
-      >
-        <DialogTitle sx={{ fontSize: "1.25rem", textAlign: "center" }}>
-          Edit Student
-        </DialogTitle>
+    {editform && (
+  <Dialog
+    open={editform}
+    onClose={() => setEditform(false)}
+    fullScreen={false} // Force off full screen
+    fullWidth
+    maxWidth="xs" // Smaller width
+    scroll="paper"
+    PaperProps={{
+      sx: {
+        p: 2,
+        borderRadius: 2,
+        maxHeight: "80vh", // Reduce height
+        width: "100%",
+      },
+    }}
+  >
+    <DialogTitle sx={{ fontSize: "1.1rem", textAlign: "center", pb: 1 }}>
+      Edit Student
+    </DialogTitle>
 
-        <form onSubmit={handleUpdate}>
-          <DialogContent>
-            <TextField
-              margin="normal"
-              fullWidth
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              label="Age"
-              name="age"
-              type="number"
-              value={formData.age}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              label="Grade"
-              name="grade"
-              value={formData.grade}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              label="Address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              label="Phone Number"
-              name="phonenumber"
-              value={formData.phonenumber}
-              onChange={handleChange}
-              type="tel"
-            />
-          </DialogContent>
+    <form onSubmit={handleUpdate}>
+      <DialogContent sx={{ pt: 0 }}>
+        <TextField
+          size="small"
+          margin="dense"
+          fullWidth
+          label="Name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+        <TextField
+          size="small"
+          margin="dense"
+          fullWidth
+          label="Age"
+          name="age"
+          type="number"
+          value={formData.age}
+          onChange={handleChange}
+        />
+        <TextField
+          size="small"
+          margin="dense"
+          fullWidth
+          label="Grade"
+          name="grade"
+          value={formData.grade}
+          onChange={handleChange}
+        />
+        <TextField
+          size="small"
+          margin="dense"
+          fullWidth
+          label="Address"
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+        />
+        <TextField
+          size="small"
+          margin="dense"
+          fullWidth
+          label="Phone Number"
+          name="phonenumber"
+          value={formData.phonenumber}
+          onChange={handleChange}
+          type="tel"
+        />
+      </DialogContent>
 
-          <DialogActions sx={{ justifyContent: "space-between", p: 2 }}>
-            <Button onClick={() => setEditform(false)} color="secondary" variant="outlined">
-              Cancel
-            </Button>
-            <Button type="submit" variant="contained" color="primary">
-              Update
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
-    )}
+      <DialogActions sx={{ justifyContent: "flex-end", px: 2, pb: 2 }}>
+        <Button onClick={() => setEditform(false)} size="small" color="secondary" variant="outlined">
+          Cancel
+        </Button>
+        <Button type="submit" size="small" variant="contained" color="primary">
+          Update
+        </Button>
+      </DialogActions>
+    </form>
+  </Dialog>
+)}
+
     </Box>
    
   );

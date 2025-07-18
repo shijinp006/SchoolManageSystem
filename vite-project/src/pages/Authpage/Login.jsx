@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Box, Button, Paper, Typography, TextField } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import { Loader } from '../../Context/LoaderContext.jsx';
 export const LoginForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const { showLoader, hideLoader } = Loader();
 
   const navigate = useNavigate()
   
-
+useEffect(() => {
+       showLoader();
+       setTimeout(() => {
+         hideLoader();
+       }, 2000); // simulate loading
+     }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -21,11 +27,16 @@ export const LoginForm = () => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/Admin/login`, formData);
       const { token } = response.data;
-      console.log(response, "res");
-      console.log(token, "token");
+      const { admin } = response.data;
+      const Permission = admin?.Permission;
+      const role = admin?.role
+
+      
 
       // Store token
       localStorage.setItem('token', token);
+      localStorage.setItem('Permission', Permission);
+      localStorage.setItem('role', role);
 
       
       if (response && response.status === 200) { // Check for successful response status
@@ -34,6 +45,10 @@ export const LoginForm = () => {
           theme: 'colored',
         });
         navigate("/home")
+        showLoader();
+       setTimeout(() => {
+         hideLoader();
+       }, 2000); // simulate loading
        
       } else {
         

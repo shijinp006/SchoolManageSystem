@@ -7,8 +7,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log("Veryfy Token");
-  console.log(authHeader,"auth Header");
+  console.log(authHeader,"auth");
+  
   
   
 
@@ -18,7 +18,7 @@ const verifyToken = (req, res, next) => {
   }
 
   const token = authHeader.split(" ")[1];
-  console.log(token,"123");
+  // console.log(token,"123");
   
 
   try {

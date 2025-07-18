@@ -30,9 +30,9 @@ const adminSchema = new mongoose.Schema({
     enum: ['admin', 'staff'],  // You can add more roles as needed
     default: 'staff',
   },
-  Permissionstatus :{
+  Permission :{
     type :String,
-    default :"granted",
+    
   }
 });
 

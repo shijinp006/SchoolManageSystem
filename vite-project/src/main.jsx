@@ -7,17 +7,23 @@ import { ThemeProvider, CssBaseline } from '@mui/material'; // Import CssBaselin
 import theme from './Theme.jsx'; // Your custom theme
 import { Provider } from "react-redux";
 import store from "./Redux/Store.jsx";
+import { LoaderProvider } from './Context/LoaderContext.jsx';
+import GlobalLoader from './Components/GlobalLoader.jsx';
+
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 createRoot(document.getElementById('root')).render(
-  
   <StrictMode>
     <Provider store={store}>
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
-     <App />
-    </ThemeProvider>
+      <LoaderProvider>
+        <GlobalLoader />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </LoaderProvider>
     </Provider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
+

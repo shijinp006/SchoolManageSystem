@@ -29,17 +29,21 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  Stack
  
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SchoolIcon from "@mui/icons-material/School";
 import GroupIcon from "@mui/icons-material/Group";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
+import { Loader } from '../../Context/LoaderContext.jsx';
 import {
   fetchStaff,
   deleteStaff,
   updateStaff,
+  changePermission ,
+  cancelPermission 
 } from "../../Redux/Slice/StaffSlice.jsx";
 
 const drawerWidth = 240;
@@ -51,23 +55,32 @@ export const ViewStaff = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [staffData,setStaffdata]  =useState([])
-  console.log(staffData,"staff");
   const [editform,setEditform] = useState(false)
-     const [stafftId, setStaffId] = useState(null);
+  const [stafftId, setStaffId] = useState(null);
+  const { showLoader, hideLoader } = Loader();
   
-     const [formData, setFormData] = useState({
-      name: '',
-      email :''
-    });
+  const [formData, setFormData] = useState({
+    name: '',
+     email :'',
+     phonenumber:''
+ });
   
+    //Get Token
+    const token = localStorage.getItem("token")
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
    const dispatch = useDispatch();
-    const { list, loading } = useSelector((state) => state.students);
-    
+   
+    useEffect(() => {
+    showLoader();
+    setTimeout(() => {
+      hideLoader();
+    }, 2000); // simulate loading
+  }, []);
+
    useEffect(() => {
     const fetchData = async () => {
       const response = await dispatch(fetchStaff());
@@ -76,7 +89,7 @@ export const ViewStaff = () => {
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, [dispatch,showLoader]);
 
   const handleChange = (e) => {
       const { name, value } = e.target;
@@ -85,54 +98,96 @@ export const ViewStaff = () => {
     const handleEdit = (id) =>{
       setStaffId(id)
       setEditform(true)
+      showLoader();
+    setTimeout(() => {
+      hideLoader();
+    }, 2000); // simulate loading
     }
   
     
   
    const handleDelete = (id) => {
+    showLoader();
+    setTimeout(() => {
+      hideLoader();
+    }, 2000); // simulate loading
     const confirmDelete = window.confirm('Are you sure you want to delete this student?');
-    if (confirmDelete) {
+      if (confirmDelete) {
       dispatch(deleteStaff(id));
-    }
+      }
   };
   
-  
-    const handleUpdate = (e) => {
+  //Editing Staff
+    const handleUpdate = async(e) => {
     e.preventDefault(); // Prevent form refresh on submit
   
     console.log(stafftId, "staffId122");
   
     const updatedData = formData;
-    dispatch(updateStaff({ id: stafftId, data: updatedData }));
+    await dispatch(updateStaff({ id: stafftId, data: updatedData })).unwrap();
   
     // Optionally close the dialog and reset form
     setEditform(false);
+    setFormData({name:"",email:""})
+    showLoader();
+    setTimeout(() => {
+      hideLoader();
+    }, 2000); // simulate loading
   };
+  //Change The Permission
+
+  const ChangePermission = async (id) =>{
+    const confirm = window.confirm('Are you sure you want to grant access to this staff member?');
+    if(confirm){
+         await dispatch(changePermission(id)).unwrap();
+    }
+    showLoader();
+    setTimeout(() => {
+      hideLoader();
+    }, 2000); // simulate loading
+  
+  }
+  // Cancel Permission
+
+  const CancelPermission = async (id) =>{
+    const confirm = window.confirm('Are you sure you want to revoke access for this staff member?')
+    if(confirm){
+       await dispatch(cancelPermission(id)).unwrap();
+    }
+    showLoader();
+    setTimeout(() => {
+      hideLoader();
+    }, 2000); // simulate loading
+   
+  }
+   useEffect(()=>{
+      if(!token){
+        window.location.href="/"
+      }
+    },[])
   
   const drawer = (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-        Admin Panel
-      </Typography>
-      <Divider sx={{ mb: 2 }} />
-      <List>
-        <ListItemButton component={Link} to="/home">
-          <ListItemIcon><DashboardIcon /></ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItemButton>
+  <Box> {/* Reduced padding from 2 to 1 for less overall space */}
+    <Typography variant="h6" fontWeight="bold" sx={{ mb: 1 }}> {/* Reduced margin-bottom */}
+      Admin Panel
+    </Typography>
+    <Divider sx={{ mb: 1 }} /> {/* Reduced margin-bottom */}
+    <List>
+      <ListItemButton component={Link} to="/home">
+        <ListItemIcon><DashboardIcon /></ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItemButton>
 
-        <ListItemButton component={Link} to="/viewstudent">
-          <ListItemIcon><SchoolIcon /></ListItemIcon>
-          <ListItemText primary="View Students" />
-        </ListItemButton>
-
-       
-      </List>
-    </Box>
-  );
+      <ListItemButton component={Link} to="/viewstudent">
+        <ListItemIcon><SchoolIcon /></ListItemIcon>
+        <ListItemText primary="View Students" />
+      </ListItemButton>
+    </List>
+  </Box>
+);
 
   return (
-    <Box sx={{ display: "flex", width: "100%" }}>
+    <Box sx={{ display: "flex", width:isMobile?"370px": "100%" }}>
       <CssBaseline />
 
       {/* AppBar on mobile */}
@@ -153,6 +208,7 @@ export const ViewStaff = () => {
           </Toolbar>
         </AppBar>
       )}
+      
 
       {/* Drawer */}
       <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
@@ -198,7 +254,7 @@ export const ViewStaff = () => {
             gutterBottom
             sx={{ color: "#2e7d32" }}
           >
-            Staff List
+            STAFF LISTS
           </Typography>
 
           <TableContainer component={Paper} sx={{ borderRadius: 3, boxShadow: 3 }}>
@@ -209,42 +265,99 @@ export const ViewStaff = () => {
                   <TableCell><strong>Name</strong></TableCell>
                   <TableCell><strong>Role</strong></TableCell>
                   <TableCell><strong>Email</strong></TableCell>
+                  <TableCell><strong>Phone Number</strong></TableCell>
                    <TableCell><strong>Action</strong></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {staffData.map((staff,index) => (
-                  <TableRow key={staff._id}>
-                    <TableCell>{index+1}</TableCell>
-                    <TableCell>{staff.name}</TableCell>
-                    <TableCell>{staff.role}</TableCell>
-                    <TableCell>{staff.email}</TableCell>
-                     <TableCell>
-                              <Button 
-                                variant="outlined" 
-                                color="primary" 
-                                size="small" 
-                                onClick={() => handleEdit(staff._id)}
-                                sx={{ marginRight: 1 }}
-                              >
-                                Edit
-                              </Button>
-                              <Button 
-                                variant="outlined" 
-                                color="error" 
-                                size="small" 
-                                onClick={() => handleDelete(staff._id)}
-                              >
-                                Delete
-                              </Button>
-                            </TableCell>
-                  </TableRow>
-                ))}
+               {staffData.length === 0 ? (
+  // Display this message when staffData is empty
+   <Typography variant="body1" sx={{ mt: 2, textAlign: 'center' }}>
+    No staff members to display.
+  </Typography>
+) : (
+  // Display the table when staffData has members
+  // Assuming this is part of a <table> or <TableBody> component
+  <>
+    {staffData.map((staff, index) => (
+      <TableRow key={staff._id}>
+  <TableCell>{index + 1}</TableCell>
+  <TableCell>{staff.name}</TableCell>
+  <TableCell>{staff.role}</TableCell>
+  <TableCell>{staff.email}</TableCell>
+  <TableCell>{staff.phonenumber}</TableCell>
+  <TableCell>
+    {/* Edit Button (always visible) */}
+   <Stack
+    direction={isMobile ? "column" : "row"} // Stack buttons vertically on mobile
+    spacing={isMobile ? 0.5 : 1} // Controls the gap between buttons (0.5 for mobile, 1 for desktop)
+  >
+    {/* Edit Button */}
+    <Button
+      variant="outlined"
+      color="primary"
+      size={isMobile ? "small" : "medium"}
+      onClick={() => handleEdit(staff._id)}
+      sx={{
+        width: isMobile ? '100%' : 'auto', // Make buttons full width on mobile if desired
+        // Removed individual marginRight here, as Stack handles spacing
+      }}
+    >
+      Edit
+    </Button>
+
+    {/* Delete Button (with responsive size and integrated into Stack for spacing) */}
+    <Button
+      variant="outlined"
+      color="error"
+      size={isMobile ? "small" : "medium"} // Already reduces size on mobile
+      onClick={() => handleDelete(staff._id)}
+      sx={{
+        width: isMobile ? '100%' : 'auto', // Make buttons full width on mobile if desired
+        // Removed individual marginRight here, as Stack handles spacing
+      }}
+    >
+      Delete
+    </Button>
+
+    {/* Conditional Permission Buttons */}
+    {staff.Permission === "granted" ? (
+      <Button
+        variant="outlined"
+        color="secondary"
+        size={isMobile ? "small" : "medium"}
+        onClick={() => CancelPermission(staff._id)}
+        sx={{
+            width: isMobile ? '100%' : 'auto',
+        }}
+      >
+        Cancel Access
+      </Button>
+    ) : (
+      <Button
+        variant="outlined"
+        color="success"
+        size={isMobile ? "small" : "medium"}
+        onClick={() => ChangePermission(staff._id)}
+        sx={{
+            width: isMobile ? '100%' : 'auto',
+        }}
+      >
+        Grant Access
+      </Button>
+    )}
+  </Stack>
+  </TableCell>
+</TableRow>
+    ))}
+  </>
+)}
               </TableBody>
             </Table>
           </TableContainer>
         </Box>
       </Box>
+      
       {editform && (
             <Dialog
               open={editform}
@@ -263,7 +376,7 @@ export const ViewStaff = () => {
               }}
             >
               <DialogTitle sx={{ fontSize: "1.25rem", textAlign: "center" }}>
-                Edit Student
+                Edit Staff
               </DialogTitle>
       
               <form onSubmit={handleUpdate}>
@@ -283,6 +396,15 @@ export const ViewStaff = () => {
                     name="email"
                     type="email"
                     value={formData.email}
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    label="Phone Number"
+                    name="phonenumber"
+                    type="phonenumber"
+                    value={formData.phonenumber}
                     onChange={handleChange}
                   />
                  

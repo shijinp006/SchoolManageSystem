@@ -8,6 +8,8 @@ const Createstaff = async (req, res) => {
     const { name, email, password, phonenumber, role } = req.body;
     console.log(email, password, name, phonenumber, role, "Received data");
 
+    const Phonenumber = parseInt(phonenumber)
+
     // ✅ Validate required fields
     if (!name || !email || !password || !role) {
       return res.status(400).json({ message: "All fields are required" });
@@ -15,10 +17,12 @@ const Createstaff = async (req, res) => {
 
     // ✅ Validate phone number format (Indian format - 10 digits starting with 6–9)
       // ✅ Validate phone number if it's provided
-if (phonenumber) {
+  if (Phonenumber) {
   const phoneRegex = /^[6-9]\d{9}$/;
 
-  if (!phoneRegex.test(phonenumber)) {
+  if (!phoneRegex.test(Phonenumber)) {
+    console.log("is");
+    
     return res.status(400).json({
       message: "Invalid phone number. It must be a 10-digit number starting with 6–9."
     });
@@ -42,7 +46,7 @@ if (phonenumber) {
       email,
       password: hashedPassword,
       role,
-      phonenumber: phonenumber, // Save it to DB
+      phonenumber: Phonenumber, // Save it to DB
       Permissionstatus:""
     });
 
@@ -64,7 +68,7 @@ const Viewstaff = async (req, res) => {
       return res.status(404).json({ message: "No staff found" });
     }
 
-    console.log("Staff details:", staffDetails);
+
     res.status(200).json(staffDetails);
   } catch (error) {
     console.error("Error fetching staff details:", error);
@@ -138,6 +142,76 @@ const Deletestaff = async (req, res) => {
   }
 };
 
+//Change Staff Permission
+const ChangePermission = async (req, res) => {
+  console.log("Attempting to change staff permission...");
+
+  const { id } = req.params;
+  console.log(`Received staff ID for permission change: ${id}`);
+
+  try {
+    const existingStaff = await Admin.findById(id);
+
+    if (!existingStaff) {
+      console.log(`Staff with ID ${id} not found.`);
+      return res.status(404).json({ message: "Staff Not Found" });
+    }
+
+    const updatedStaff = await Admin.findByIdAndUpdate(
+      id,
+      { Permission: "granted" }
+    );
+
+    if (updatedStaff) {
+      return res.status(200).json({
+        message: "Permission updated successfully", 
+      });
+    } else {
+      console.error(`Failed to update permission for staff ID: ${id}. No document returned after update.`);
+      return res.status(500).json({ message: "Failed to update permission." });
+    }
+
+  } catch (error) {
+    console.error(`Error changing permission for staff ID ${id}:`, error.message);
+
+    if (error.name === 'CastError') {
+      return res.status(400).json({ message: "Invalid Staff ID format." });
+    }
+    return res.status(500).json({ message: "Server error during permission update.", error: error.message });
+  }
+};
 
 
-module.exports = { Createstaff,Viewstaff,Editstaff,Deletestaff };
+const CancelPermission = async (req, res) => {
+  console.log("Attempting to cancel staff permission...");
+
+  const { id } = req.params;
+  console.log(`Received staff ID for permission cancellation: ${id}`);
+
+  try {
+    const updatedStaff = await Admin.findByIdAndUpdate(
+      id,
+      { Permission: "" },
+    );
+
+    if (!updatedStaff) {
+      console.log(`Staff with ID ${id} not found for permission cancellation.`);
+      return res.status(404).json({ message: "Staff Not Found" });
+    }
+
+    console.log(`Permission successfully cancelled for staff ID: ${id}`);
+    return res.status(200).json({
+      message: "Permission cancelled successfully",
+      staff: updatedStaff
+    });
+
+  } catch (error) {
+    console.error(`Error cancelling permission for staff ID ${id}:`, error.message);
+
+    if (error.name === 'CastError') {
+      return res.status(400).json({ message: "Invalid Staff ID format." });
+    }
+    return res.status(500).json({ message: "Server error during permission cancellation.", error: error.message });
+  }
+};
+module.exports = { Createstaff,Viewstaff,Editstaff,Deletestaff,ChangePermission,CancelPermission };

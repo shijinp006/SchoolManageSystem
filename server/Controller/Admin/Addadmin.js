@@ -15,7 +15,9 @@ const addAdmin = async (req, res) => {
     const name = "Admin"
     const email = "admin@gmail.com"
     const password ="admin@123"
-    role = "admin"
+    const role = "admin"
+    const Permission = "granted"
+
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -43,6 +45,7 @@ const addAdmin = async (req, res) => {
       email,
       password: hashedPassword,
       role: role || 'user',
+      Permission:Permission || " "
     });
 
     await newAdmin.save();
@@ -54,6 +57,7 @@ const addAdmin = async (req, res) => {
         name: newAdmin.name,
         email: newAdmin.email,
         role: newAdmin.role,
+        Permission:newAdmin. Permission
       },
     });
   } catch (error) {

@@ -31,13 +31,14 @@ const login = async (req, res) => {
 
     // Generate JWT Token
     const token = jwt.sign(
-      { id: admin._id, email: admin.email, role: 'admin' },
+      { id: admin._id, email: admin.email, role: admin.role,Permission:admin.Permission },
       JWT_SECRET,
       
     );
-    console.log(token,"token");
+    // console.log(token,"token");
     
-
+    console.log(admin.Permission,"per");
+    
     // Respond with token and user data
     return res.status(200).json({
       message: 'Login successful.',
@@ -46,7 +47,8 @@ const login = async (req, res) => {
         id: admin._id,
         name: admin.name,
         email: admin.email,
-        role:admin.role
+        role:admin.role,
+        Permission:admin.Permission
       }
     });
 
