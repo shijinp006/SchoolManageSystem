@@ -32,7 +32,7 @@ app.use("/Admin",Addadmin)
 app.use("/Admin",Createstaff)
 app.use("/Admin",Createstudent)
 // ===== MongoDB Connection =====
-const MONGO_URI = "mongodb://mongo:KJJadrwmUnnbUXELdzwMGQLOlcfOqGMs@shortline.proxy.rlwy.net:54105/studentdb"   //process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/studentdb';
+const MONGO_URI = "mongodb://mongo:KJJadrwmUnnbUXELdzwMGQLOlcfOqGMs@mongodb.railway.internal:27017/studentdb"   //process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/studentdb';
 
 mongoose
   .connect(MONGO_URI, {
