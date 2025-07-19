@@ -3,14 +3,12 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import dotenv from 'dotenv';
 import session from 'express-session';
-import Addadmin from './Routes/authroute.js';
+
+// import Addadmin from './Routes/authroute.js';
 import Createstaff from './Routes/createstaff.js';
 import Createstudent from './Routes/createstudent.js';
 
 
-
-
-// ===== Load Environment Variables =====
 dotenv.config();
 
 const app = express();
@@ -18,12 +16,9 @@ const app = express();
 app.use(express.json()); // For JSON payloads
 app.use(express.urlencoded({ extended: true })); // For form submissions
 
-
-
-
 // ===== CORS Options =====
 const FrontendURL = process.env.FrontendURL
-console.log(FrontendURL);
+
 
 const corsOptions = {
   origin:process.env.FrontendURL ,// replace with your frontend URL
