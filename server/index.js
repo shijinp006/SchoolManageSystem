@@ -14,8 +14,9 @@ const Createstaff = require("../server/Routes/Createstaff")
 const Createstudent = require("../server/Routes/Createstudent")
 
 // ===== CORS Options =====
+const FrontendURL = process.env.FrontendURL
 const corsOptions = {
-  origin: 'http://localhost:5173', // replace with your frontend URL
+  origin:  FrontendURL,   //'http://localhost:5173'// replace with your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // allow cookies if needed
 };
@@ -29,7 +30,7 @@ app.use("/Admin",Addadmin)
 app.use("/Admin",Createstaff)
 app.use("/Admin",Createstudent)
 // ===== MongoDB Connection =====
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/studentdb';
+const MONGO_URI = process.env.MONGO_URI || //'mongodb://127.0.0.1:27017/studentdb';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('✅ Connected to MongoDB'))
@@ -38,6 +39,7 @@ mongoose.connect(MONGO_URI)
 
 
 // ===== Start the Server =====
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server started on port ${PORT}`);

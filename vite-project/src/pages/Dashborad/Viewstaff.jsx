@@ -59,11 +59,9 @@ export const ViewStaff = () => {
   const [stafftId, setStaffId] = useState(null);
   const { showLoader, hideLoader } = Loader();
   
-  const [formData, setFormData] = useState({
-    name: '',
-     email :'',
-     phonenumber:''
- });
+  const [formData, setFormData] = useState({});
+ console.log(formData,"for");
+ 
   
     //Get Token
     const token = localStorage.getItem("token")
@@ -103,9 +101,11 @@ export const ViewStaff = () => {
       setStaffId(id)
       setEditform(true)
 
-      const data = staffData.filter((data)=> data._id === id)
-      console.log(data,"data");
-      
+      const data = staffData.find((data)=> data._id === id)
+      // console.log(data,"data");
+      if(data){
+        setFormData({name:data.name, email:data.email,phonenumber:data.phonenumber})
+      }
      
     }
   
@@ -363,69 +363,80 @@ export const ViewStaff = () => {
         </Box>
       </Box>
       
-      {editform && (
-            <Dialog
-              open={editform}
-              onClose={() => setEditform(false)}
-            
-              fullWidth
-              maxWidth="sm" // Responsive width
-              scroll="paper"
-              PaperProps={{
-                sx: {
-                  p: 2,
-                  borderRadius: 2,
-                  maxHeight: "90vh",
-                  width: "100%", // Ensure full width inside maxWidth
-                },
-              }}
-            >
-              <DialogTitle sx={{ fontSize: "1.25rem", textAlign: "center" }}>
-                Edit Staff
-              </DialogTitle>
-      
-              <form onSubmit={handleUpdate}>
-                <DialogContent>
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    label="Name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    label="Email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    label="Phone Number"
-                    name="phonenumber"
-                    type="phonenumber"
-                    value={formData.phonenumber}
-                    onChange={handleChange}
-                  />
-                 
-                </DialogContent>
-      
-                <DialogActions sx={{ justifyContent: "space-between", p: 2 }}>
-                  <Button onClick={() => setEditform(false)} color="secondary" variant="outlined">
-                    Cancel
-                  </Button>
-                  <Button type="submit" variant="contained" color="primary">
-                    Update
-                  </Button>
-                </DialogActions>
-              </form>
-            </Dialog>
-          )}
+    {editform && (
+  <Dialog
+    open={editform}
+    onClose={() => setEditform(false)}
+    fullWidth
+    maxWidth="xs"
+    scroll="paper"
+    PaperProps={{
+      sx: {
+        p: 1.5,
+        borderRadius: 2,
+        maxHeight: "80vh",
+        width: "100%",
+      },
+    }}
+  >
+    <DialogTitle sx={{ fontSize: "1.1rem", textAlign: "center", pb: 0 }}>
+      Edit Staff
+    </DialogTitle>
+
+    <form onSubmit={handleUpdate}>
+      <DialogContent sx={{ pt: 1 }}>
+        <TextField
+          margin="dense"
+          fullWidth
+          size="small"
+          label="Name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          sx={{ mb: 1 }} // Add margin-bottom
+        />
+        <TextField
+          margin="dense"
+          fullWidth
+          size="small"
+          label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          sx={{ mb: 1 }}
+        />
+        <TextField
+          margin="dense"
+          fullWidth
+          size="small"
+          label="Phone Number"
+          name="phonenumber"
+          type="text"
+          value={formData.phonenumber}
+          onChange={handleChange}
+          sx={{ mb: 1 }}
+        />
+      </DialogContent>
+
+      <DialogActions sx={{ justifyContent: "space-between", px: 2, pb: 1 }}>
+        <Button
+          onClick={() => setEditform(false)}
+          color="secondary"
+          variant="outlined"
+          size="small"
+        >
+          Cancel
+        </Button>
+        <Button type="submit" variant="contained" color="primary" size="small">
+          Update
+        </Button>
+      </DialogActions>
+    </form>
+  </Dialog>
+)}
+
+
     </Box>
   );
 };

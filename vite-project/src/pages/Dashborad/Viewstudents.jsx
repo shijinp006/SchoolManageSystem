@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -56,13 +56,7 @@ export const ViewStudent = () => {
   const [studentId, setStudentId] = useState(null);
   const { showLoader, hideLoader } = Loader();
 
-   const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    grade: '',
-    address: '',
-    phonenumber: ''
-  });
+   const [formData, setFormData] = useState({});
 
   // Get Role
   const role = localStorage.getItem("role")
@@ -106,6 +100,11 @@ const handleChange = (e) => {
   const handleEdit = (id) =>{
     setStudentId(id)
     setEditform(true)
+    const data = studentData.find((data) =>data._id === id)
+
+    if(data){
+      setFormData({name:data.name,age:data.age,grade:data.grade, address:data.address,phonenumber:data.phonenumber})
+    }
     
   }
 
