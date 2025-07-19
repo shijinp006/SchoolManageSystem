@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
  export const Createstaff = async (req, res) => {
   try {
-    console.log("Check Create Staff");
+    // console.log("Check Create Staff");
 
     const { name, email, password, phonenumber, role } = req.body;
     console.log(email, password, name, phonenumber, role, "Received data");
@@ -35,7 +35,8 @@ import bcrypt from 'bcryptjs';
     // ✅ Check if staff already exists
     const existingStaff = await Admin.findOne({ email });
     if (existingStaff) {
-      return res.status(400).json({ message: "Staff already exists" });
+      return res.status(400).json({ message: "A staff member with this email already exists." });
+
     }
 
     // ✅ Hash the password
