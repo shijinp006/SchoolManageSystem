@@ -12,15 +12,18 @@ const app = express();
 const Addadmin = require("../server/Routes/authroute")
 const Createstaff = require("../server/Routes/createstaff")
 const Createstudent = require("../server/Routes/createstudent")
-app.get('/', (req, res) => {
-  res.send('Server is running!');
-});
+// app.get('/', (req, res) => {
+//   res.send('Server is running!');
+// });
 
 
 // ===== CORS Options =====
 const FrontendURL = process.env.FrontendURL
+const MONGO_URI = process.env.MONGO_URI
+console.log(FrontendURL);
+
 const corsOptions = {
-  origin:"https://school-manage-system-mtcf.vercel.app" ,// replace with your frontend URL
+  origin:process.env.FrontendURL ,// replace with your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // allow cookies if needed
 };
@@ -34,16 +37,11 @@ app.use("/Admin",Addadmin)
 app.use("/Admin",Createstaff)
 app.use("/Admin",Createstudent)
 // ===== MongoDB Connection =====
-const MONGO_URI = "mongodb://mongo:KJJadrwmUnnbUXELdzwMGQLOlcfOqGMs@mongodb.railway.internal:27017/studentdb"   //process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/studentdb';
 
-mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('✅ Connected to MongoDB'))
-  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch((err) => console.error('❌ MongoDB Error:', err));
 
 // ===== Start the Server =====
 

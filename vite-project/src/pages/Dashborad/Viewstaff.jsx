@@ -104,7 +104,7 @@ export const ViewStaff = () => {
       const data = staffData.find((data)=> data._id === id)
       // console.log(data,"data");
       if(data){
-        setFormData({name:data.name, email:data.email,phonenumber:data.phonenumber})
+        setFormData({name:data.name, email:data.email,phonenumber:data.phonenumber,password:""})
       }
      
     }
@@ -403,6 +403,17 @@ export const ViewStaff = () => {
           name="email"
           type="email"
           value={formData.email}
+          onChange={handleChange}
+          sx={{ mb: 1 }}
+        />
+         <TextField
+          margin="dense"
+          fullWidth
+          size="small"
+          label="Password"
+          name="password"
+          type="text"
+          value={formData.password}
           onChange={handleChange}
           sx={{ mb: 1 }}
         />

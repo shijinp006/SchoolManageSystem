@@ -94,13 +94,16 @@ const Editstaff = async (req, res) => {
     }
 
     // Update allowed fields from req.body
-    const { name, email, phonenumber, role, Permissionstatus } = req.body;
+    const { name, email, phonenumber, role, password } = req.body;
+
+      const hashedPassword = await bcrypt.hash(password, 10);
 
     if (name) existingStaff.name = name;
     if (email) existingStaff.email = email;
     if (phonenumber) existingStaff.phonenumber = phonenumber;
     if (role) existingStaff.role = role;
-    if (Permissionstatus) existingStaff.Permissionstatus = Permissionstatus;
+    if (password) existingStaff.password = hashedPassword
+  
 
     // Save changes
     const updatedStaff = await existingStaff.save();
