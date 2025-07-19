@@ -9,9 +9,9 @@ dotenv.config();
 const app = express();
 
 
-// const Addadmin = require("../server/Routes/authroute")
-// const Createstaff = require("../server/Routes/createstaff")
-// const Createstudent = require("../server/Routes/createstudent")
+const Addadmin = require("../server/Routes/authroute")
+const Createstaff = require("../server/Routes/createstaff")
+const Createstudent = require("../server/Routes/createstudent")
 
 
 
