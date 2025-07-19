@@ -1,20 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
+const session = require('express-session');
+
 
 // ===== Load Environment Variables =====
 dotenv.config();
 
 const app = express();
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+const Addadmin = require("./Routes/authroute")
+const Createstaff = require("./Routes/createstaff")
+const Createstudent = require("./Routes/createstudent")
 
-const Addadmin = require("../server/Routes/authroute")
-const Createstaff = require("../server/Routes/createstaff")
-const Createstudent = require("../server/Routes/createstudent")
-// app.get('/', (req, res) => {
-//   res.send('Server is running!');
-// });
+console.log(__dirname,"dir");
 
 
 // ===== CORS Options =====
@@ -27,6 +31,13 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // allow cookies if needed
 };
+
+app.use(session({
+  secret: process.env.JWT_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // use true if you are using HTTPS
+}));
 
 app.use(cors(corsOptions)); // Enable CORS with options
 app.use(express.json()); // For JSON payloads
