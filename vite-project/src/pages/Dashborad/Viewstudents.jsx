@@ -165,7 +165,7 @@ useEffect(()=>{
 
         
 
-        {role === "admin" &&<ListItemButton component={Link} to="/viewstaff">
+        {role === "Super Admin" &&<ListItemButton component={Link} to="/viewstaff">
           <ListItemIcon><GroupIcon /></ListItemIcon>
          <ListItemText primary="View Staff" />
 

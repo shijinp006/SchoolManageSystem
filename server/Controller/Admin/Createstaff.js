@@ -62,7 +62,7 @@ const Createstaff = async (req, res) => {
 const Viewstaff = async (req, res) => {
   try {
     // Fetch all users with role "staff"
-    const staffDetails = await Admin.find({ role: "staff" });
+    const staffDetails = await Admin.find({ role: "Staff" });
 
     if (staffDetails.length === 0) {
       return res.status(404).json({ message: "No staff found" });

@@ -113,7 +113,7 @@ const HomePage = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [studentform,setStudentform] = useState(false)
   const [staffform,setStaffform] = useState(false)
-   const { showLoader, hideLoader } = Loader();
+  const { showLoader, hideLoader } = Loader();
   
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -296,7 +296,7 @@ const Createstaff = async (e) => {
       </ListItemButton>
     </ListItem>
     <ListItem disablePadding>
-      {role==="admin"&&<ListItemButton component={Link} to="/viewstaff">
+      {role==="Super Admin"&&<ListItemButton component={Link} to="/viewstaff">
         <ListItemIcon><PeopleAltIcon /></ListItemIcon>
         <ListItemText primary="View Staff" />
       </ListItemButton>}
@@ -308,7 +308,7 @@ const Createstaff = async (e) => {
       </ListItemButton>
     </ListItem>
     <ListItem disablePadding>
-    {role === "admin" && (
+    {role === "Super Admin" && (
   <ListItemButton onClick={handleStafftform}>
     <ListItemIcon><PersonAddIcon /></ListItemIcon>
     <ListItemText primary="Create Staff" />
@@ -483,8 +483,8 @@ const Createstaff = async (e) => {
           value={staffformData.role}
           onChange={handleChange1}
        >
-       <MenuItem value="admin">Admin</MenuItem>
-       <MenuItem value="staff">Staff</MenuItem>
+       <MenuItem value="Super Admin">Admin</MenuItem>
+       <MenuItem value="Staff">Staff</MenuItem>
       
   {/* Add more roles as needed */}
    </TextField>

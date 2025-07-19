@@ -266,7 +266,7 @@ export const ViewStaff = () => {
                   <TableCell><strong>Role</strong></TableCell>
                   <TableCell><strong>Email</strong></TableCell>
                   <TableCell><strong>Phone Number</strong></TableCell>
-                   <TableCell><strong>Action</strong></TableCell>
+                   <TableCell align="center"><strong>Action</strong></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -286,7 +286,7 @@ export const ViewStaff = () => {
   <TableCell>{staff.role}</TableCell>
   <TableCell>{staff.email}</TableCell>
   <TableCell>{staff.phonenumber}</TableCell>
-  <TableCell>
+  <TableCell align="center">
     {/* Edit Button (always visible) */}
    <Stack
     direction={isMobile ? "column" : "row"} // Stack buttons vertically on mobile

@@ -34,7 +34,7 @@ const Createstudent = async (req, res) => {
     }
 
     // Authorization check: allow only admins or users with "granted" permission
-    if (role !== 'admin' && Permission !== "granted") {
+    if (role !== 'Super Admin' && Permission !== "granted") {
       return res.status(403).json({ message: "Unauthorized. Only admins or permitted users can edit students." });
     }
 
@@ -94,7 +94,7 @@ const Editstudent = async (req, res) => {
     // console.log("Edit Request - Role:", role, "Permission:", Permission, "Student ID:", id);
 
     // Authorization check: allow only admins or users with "granted" permission
-    if (role !== 'admin' && Permission !== "granted") {
+    if (role !== 'Super Admin' && Permission !== "granted") {
       return res.status(403).json({ message: "Unauthorized. Only admins or permitted users can edit students." });
     }
 
@@ -146,7 +146,7 @@ const Deletestudent = async (req, res) => {
      console.log(role,"role",Permission,"permission");
      
       // Only admin can edit
-    if (role !== 'admin'&&Permission!=="granted") {
+    if (role !== 'Super Admin'&&Permission!=="granted") {
       return res.status(403).json({ message: "Unauthorized. Only admins can Delete students." });
     }
 

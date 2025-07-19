@@ -15,7 +15,7 @@ const addAdmin = async (req, res) => {
     const name = "Admin"
     const email = "admin@gmail.com"
     const password ="admin@123"
-    const role = "admin"
+    const role = "Super Admin"
     const Permission = "granted"
 
 
@@ -26,8 +26,8 @@ const addAdmin = async (req, res) => {
 
     
 
-    if (role && !['admin', 'user'].includes(role)) {
-      return res.status(400).json({ message: 'Role must be either "admin" or "user".' });
+    if (role && !['Super Admin', 'Staff'].includes(role)) {
+      return res.status(400).json({ message: 'Role must be either "Super Admin" or "Staff".' });
     }
 
     // Check if admin already exists
@@ -44,7 +44,7 @@ const addAdmin = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: role || 'user',
+      role: role || 'Staff',
       Permission:Permission || " "
     });
 
