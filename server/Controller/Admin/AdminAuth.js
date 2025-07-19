@@ -1,4 +1,4 @@
-import Admin from '../../Models/admin.js';
+import Admin from '../../models/admin.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -36,7 +36,7 @@ import jwt from 'jsonwebtoken';
     );
     // console.log(token,"token");
     
-    console.log(admin.Permission,"per");
+    // console.log(admin.Permission,"per");
     
     // Respond with token and user data
     return res.status(200).json({

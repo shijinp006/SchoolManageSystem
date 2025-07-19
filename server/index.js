@@ -14,11 +14,9 @@ app.use(express.json()); // For JSON payloads
 app.use(express.urlencoded({ extended: true })); // For form submissions
 
 
-import Addadmin from './Routes/authroute.js';
-import Createstaff from './Routes/createstaff.js';
-import Createstudent from './Routes/createstudent.js';
-
-
+import Addadmin from './routes/authroute.js';
+import Createstaff from './routes/createstaff.js';
+import Createstudent from './routes/createstudent.js';
 
 
 
