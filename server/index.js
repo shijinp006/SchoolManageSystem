@@ -27,12 +27,12 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); // Enable CORS with options
 
-app.use(session({
-  secret: process.env.JWT_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // use true if you are using HTTPS
-}));
+// app.use(session({
+//   secret: process.env.JWT_SECRET,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: false } // use true if you are using HTTPS
+// }));
 
 
 
