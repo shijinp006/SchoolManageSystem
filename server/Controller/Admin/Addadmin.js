@@ -1,5 +1,5 @@
 // controllers/adminController.js
-const Admin = require('../../Models/Admin');
+const Admin = require('../../Models/admin');
 const bcrypt = require('bcryptjs');
 
 const addAdmin = async (req, res) => {

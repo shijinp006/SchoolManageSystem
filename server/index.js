@@ -9,15 +9,15 @@ dotenv.config();
 const app = express();
 
 
-const Addadmin = require("../server/Routes/Authroute")
-const Createstaff = require("../server/Routes/Createstaff")
-const Createstudent = require("../server/Routes/Createstudent")
+const Addadmin = require("../server/Routes/authroute")
+const Createstaff = require("./Routes/createstaff")
+const Createstudent = require("./Routes/createstudent")
 
 
 // ===== CORS Options =====
 const FrontendURL = process.env.FrontendURL
 const corsOptions = {
-  origin:  FrontendURL,   //'http://localhost:5173'// replace with your frontend URL
+  origin:"https://school-manage-system-mtcf.vercel.app" ,// replace with your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // allow cookies if needed
 };
@@ -31,7 +31,7 @@ app.use("/Admin",Addadmin)
 app.use("/Admin",Createstaff)
 app.use("/Admin",Createstudent)
 // ===== MongoDB Connection =====
-const MONGO_URI = process.env.MONGO_URI || //'mongodb://127.0.0.1:27017/studentdb';
+const MONGO_URI = "mongodb://mongo:KJJadrwmUnnbUXELdzwMGQLOlcfOqGMs@mongodb.railway.internal:27017/studentdb"   //process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/studentdb';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('✅ Connected to MongoDB'))

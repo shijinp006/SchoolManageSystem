@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // Controller Imports
-const {Createstudent,Viewstudentsdetails,Editstudent,Deletestudent} = require('../Controller/Admin/Createstudent');
-const verifyToken = require("../Middleware/Veryfytioken")
+const {Createstudent,Viewstudentsdetails,Editstudent,Deletestudent} = require('../Controller/Admin/createstudent');
+const verifyToken = require("../Middleware/veryfytioken")
 
 router.post("/create-student",verifyToken,Createstudent)
 router.get("/view-student",verifyToken,Viewstudentsdetails)

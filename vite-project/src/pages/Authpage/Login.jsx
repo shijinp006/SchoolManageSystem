@@ -25,7 +25,7 @@ useEffect(() => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/Admin/login`, formData);
+      const response = await axios.post(`/Admin/login`, formData);
       const { token } = response.data;
       const { admin } = response.data;
       const Permission = admin?.Permission;

@@ -11,7 +11,7 @@ import { LoaderProvider } from './Context/LoaderContext.jsx';
 import GlobalLoader from './Components/GlobalLoader.jsx';
 
 
-axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL||"http://schoolmanagesystem-production.up.railway.app";
+axios.defaults.baseURL ="http://schoolmanagesystem-production.up.railway.app" //"http://localhost:8080"   //import.meta.env.VITE_BACKEND_URL||"http://schoolmanagesystem-production.up.railway.app";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

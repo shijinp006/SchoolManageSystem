@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // Controller Imports
-const { Createstaff,Viewstaff,Editstaff,Deletestaff,ChangePermission,CancelPermission } = require('../Controller/Admin/Createstaff');
-const verifyToken = require("../Middleware/Veryfytioken")
+const { Createstaff,Viewstaff,Editstaff,Deletestaff,ChangePermission,CancelPermission } = require('../Controller/Admin/createstaff');
+const verifyToken = require("../Middleware/veryfytioken")
 
 // Routes
 router.post('/create-staff',verifyToken,Createstaff);
