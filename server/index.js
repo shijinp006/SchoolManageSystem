@@ -34,10 +34,15 @@ app.use("/Admin",Createstudent)
 // ===== MongoDB Connection =====
 const MONGO_URI = "mongodb://mongo:KJJadrwmUnnbUXELdzwMGQLOlcfOqGMs@mongodb.railway.internal:27017/studentdb"   //process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/studentdb';
 
-mongoose.connect(MONGO_URI)
+const mongoose = require('mongoose');
+
+mongoose
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch((err) => console.error('❌ MongoDB connection error:', err));
-
 
 
 // ===== Start the Server =====
