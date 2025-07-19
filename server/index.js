@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 const session = require('express-session');
 
@@ -10,9 +9,10 @@ const session = require('express-session');
 dotenv.config();
 
 const app = express();
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors(corsOptions)); // Enable CORS with options
+app.use(express.json()); // For JSON payloads
+app.use(express.urlencoded({ extended: true })); // For form submissions
+
 
 const Addadmin = require("./Routes/authroute")
 const Createstaff = require("./Routes/createstaff")
@@ -39,9 +39,6 @@ app.use(session({
   cookie: { secure: false } // use true if you are using HTTPS
 }));
 
-app.use(cors(corsOptions)); // Enable CORS with options
-app.use(express.json()); // For JSON payloads
-app.use(express.urlencoded({ extended: true })); // For form submissions
 
 
 app.use("/Admin",Addadmin)
