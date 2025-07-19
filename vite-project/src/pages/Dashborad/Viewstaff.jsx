@@ -98,10 +98,7 @@ export const ViewStaff = () => {
     const handleEdit = (id) =>{
       setStaffId(id)
       setEditform(true)
-      showLoader();
-    setTimeout(() => {
-      hideLoader();
-    }, 2000); // simulate loading
+     
     }
   
     

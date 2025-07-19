@@ -106,10 +106,7 @@ const handleChange = (e) => {
   const handleEdit = (id) =>{
     setStudentId(id)
     setEditform(true)
-     showLoader();
-       setTimeout(() => {
-         hideLoader();
-       }, 2000); // simulate loading
+    
   }
 
   
