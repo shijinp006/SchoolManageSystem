@@ -2,8 +2,8 @@ import express from 'express';
 const router = express.Router();
 
 // Controller Imports
-import { Createstaff, Viewstaff, Editstaff, Deletestaff, ChangePermission, CancelPermission } from '../Controller/admin/createstaff.js';
-import {verifyToken} from '../middleware/veryfytioken.js';
+import { Createstaff, Viewstaff, Editstaff, Deletestaff, ChangePermission, CancelPermission } from '../Controller/Admin/createstaff.js';
+import {verifyToken} from '../Middleware/veryfytioken.js';
 
 
 

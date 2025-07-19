@@ -3,6 +3,11 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import dotenv from 'dotenv';
 import session from 'express-session';
+import Addadmin from './Routes/authroute.js';
+import Createstaff from './Routes/createstaff.js';
+import Createstudent from './Routes/createstudent.js';
+
+
 
 
 // ===== Load Environment Variables =====
@@ -13,10 +18,6 @@ const app = express();
 app.use(express.json()); // For JSON payloads
 app.use(express.urlencoded({ extended: true })); // For form submissions
 
-
-import Addadmin from './routes/authroute.js';
-import Createstaff from './routes/createstaff.js';
-import Createstudent from './routes/createstudent.js';
 
 
 

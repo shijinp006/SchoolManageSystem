@@ -2,8 +2,8 @@ import express from 'express';
 const router = express.Router();
 
 // Controller Imports
-import { Createstudent, Viewstudentsdetails, Editstudent, Deletestudent } from '../Controller/admin/createstudent.js';
-import {verifyToken} from '../middleware/veryfytioken.js';
+import { Createstudent, Viewstudentsdetails, Editstudent, Deletestudent } from '../Controller/Admin/createstudent.js';
+import {verifyToken} from '../Middleware/veryfytioken.js';
 
 router.post("/create-student",verifyToken,Createstudent)
 router.get("/view-student",verifyToken,Viewstudentsdetails)
