@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 
 export const verifyToken = async(req, res, next) => {
   const authHeader = req.headers.authorization;
-  // console.log(authHeader,"auth");
+
   
   
   
@@ -19,7 +19,7 @@ export const verifyToken = async(req, res, next) => {
   }
 
   const token = authHeader.split(" ")[1];
-  // console.log(token,"123");
+
   
 
   try {

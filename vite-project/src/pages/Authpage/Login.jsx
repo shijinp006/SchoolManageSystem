@@ -59,7 +59,7 @@ useEffect(() => {
       }
       
 
-      console.log('Form Data:', formData);
+  
     } catch (error) {
       
 

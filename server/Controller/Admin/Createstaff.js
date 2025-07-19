@@ -4,10 +4,10 @@ import bcrypt from 'bcryptjs';
 
  export const Createstaff = async (req, res) => {
   try {
-    // console.log("Check Create Staff");
+ 
 
     const { name, email, password, phonenumber, role } = req.body;
-    console.log(email, password, name, phonenumber, role, "Received data");
+
 
     const Phonenumber = parseInt(phonenumber)
 
@@ -22,7 +22,7 @@ import bcrypt from 'bcryptjs';
   const phoneRegex = /^[6-9]\d{9}$/;
 
   if (!phoneRegex.test(Phonenumber)) {
-    console.log("is");
+  
     
     return res.status(400).json({
       message: "Invalid phone number. It must be a 10-digit number starting with 6–9."
@@ -80,10 +80,10 @@ export const Viewstaff = async (req, res) => {
 
 export const Editstaff = async (req, res) => {
   try {
-    console.log("Check edit Staff");
+  
 
     const { id } = req.params; // Staff ID from URL params
-    console.log("Editing staff ID:", id);
+   
 
   
 
@@ -123,10 +123,10 @@ export const Editstaff = async (req, res) => {
 
  export const Deletestaff = async (req, res) => {
   try {
-    console.log("Check Delete Staff");
+  
 
     const { id } = req.params; // Staff ID from URL
-    console.log("Staff ID to delete:", id);
+ 
 
    
 
@@ -149,16 +149,16 @@ export const Editstaff = async (req, res) => {
 
 //Change Staff Permission
 export const ChangePermission = async (req, res) => {
-  console.log("Attempting to change staff permission...");
+
 
   const { id } = req.params;
-  console.log(`Received staff ID for permission change: ${id}`);
+ 
 
   try {
     const existingStaff = await Admin.findById(id);
 
     if (!existingStaff) {
-      console.log(`Staff with ID ${id} not found.`);
+     
       return res.status(404).json({ message: "Staff Not Found" });
     }
 
@@ -188,10 +188,10 @@ export const ChangePermission = async (req, res) => {
 
 
 export const CancelPermission = async (req, res) => {
-  console.log("Attempting to cancel staff permission...");
+ 
 
   const { id } = req.params;
-  console.log(`Received staff ID for permission cancellation: ${id}`);
+
 
   try {
     const updatedStaff = await Admin.findByIdAndUpdate(
@@ -200,11 +200,11 @@ export const CancelPermission = async (req, res) => {
     );
 
     if (!updatedStaff) {
-      console.log(`Staff with ID ${id} not found for permission cancellation.`);
+     
       return res.status(404).json({ message: "Staff Not Found" });
     }
 
-    console.log(`Permission successfully cancelled for staff ID: ${id}`);
+
     return res.status(200).json({
       message: "Permission cancelled successfully",
       staff: updatedStaff

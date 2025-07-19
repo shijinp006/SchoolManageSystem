@@ -60,7 +60,7 @@ export const ViewStaff = () => {
   const { showLoader, hideLoader } = Loader();
   
   const [formData, setFormData] = useState({});
- console.log(formData,"for");
+
  
   
     //Get Token
@@ -102,7 +102,7 @@ export const ViewStaff = () => {
       setEditform(true)
 
       const data = staffData.find((data)=> data._id === id)
-      // console.log(data,"data");
+      
       if(data){
         setFormData({name:data.name, email:data.email,phonenumber:data.phonenumber,password:""})
       }
@@ -126,7 +126,7 @@ export const ViewStaff = () => {
     const handleUpdate = async(e) => {
     e.preventDefault(); // Prevent form refresh on submit
   
-    console.log(stafftId, "staffId122");
+ 
   
     const updatedData = formData;
     await dispatch(updateStaff({ id: stafftId, data: updatedData })).unwrap();

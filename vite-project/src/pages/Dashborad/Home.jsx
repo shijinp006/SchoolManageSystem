@@ -138,7 +138,7 @@ const HomePage = () => {
   //Get Token,role
   const role = localStorage.getItem("role")
   const token = localStorage.getItem("token")
-  console.log(role,"role");
+
   
 
  

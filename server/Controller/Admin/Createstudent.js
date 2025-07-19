@@ -1,7 +1,7 @@
 import Student from '../../Models/Student.js';
 
 export const Createstudent = async (req, res) => {
-  console.log("Check Student Creations");
+ 
 
   try {
     const { name, grade, age, address, phonenumber } = req.body;
@@ -41,7 +41,7 @@ export const Createstudent = async (req, res) => {
     // Optional: check for duplicate student by phone number or name
     const existingStudent = await Student.findOne({ Phonenumber });
     if (existingStudent) {
-      console.log("existed");
+    
       
       return res.status(409).json({ message: "Student with this phone number already exists" });
     }
@@ -66,7 +66,7 @@ export const Createstudent = async (req, res) => {
 };
 
 export const Viewstudentsdetails = async (req, res) => {
-  console.log("Check Viewstudentsdetails");
+
 
   try {
     const viewstudent = await Student.find();
@@ -91,7 +91,7 @@ export const Editstudent = async (req, res) => {
 
     const Phonenumber = parseInt(phonenumber)
 
-    // console.log("Edit Request - Role:", role, "Permission:", Permission, "Student ID:", id);
+    
 
     // Authorization check: allow only admins or users with "granted" permission
     if (role !== 'Super Admin' && Permission !== "granted") {
@@ -138,12 +138,12 @@ export const Editstudent = async (req, res) => {
 
 export const Deletestudent = async (req, res) => {
   try {
-    console.log("Check Delete Student");
+  
 
     const { id } = req.params; // Student Id From URL
      const { role,Permission } = req.query; // Role from query (e.g., ?role=admin)
 
-     console.log(role,"role",Permission,"permission");
+
      
       // Only admin can edit
     if (role !== 'Super Admin'&&Permission!=="granted") {
