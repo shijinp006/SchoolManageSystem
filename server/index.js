@@ -13,6 +13,7 @@ const Addadmin = require("../server/Routes/Authroute")
 const Createstaff = require("../server/Routes/Createstaff")
 const Createstudent = require("../server/Routes/Createstudent")
 
+
 // ===== CORS Options =====
 const FrontendURL = process.env.FrontendURL
 const corsOptions = {
