@@ -34,8 +34,6 @@ app.use("/Admin",Createstudent)
 // ===== MongoDB Connection =====
 const MONGO_URI = "mongodb://mongo:KJJadrwmUnnbUXELdzwMGQLOlcfOqGMs@mongodb.railway.internal:27017/studentdb"   //process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/studentdb';
 
-const mongoose = require('mongoose');
-
 mongoose
   .connect(MONGO_URI, {
     useNewUrlParser: true,
