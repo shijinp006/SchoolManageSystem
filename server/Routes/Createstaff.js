@@ -1,9 +1,11 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 // Controller Imports
-const { Createstaff,Viewstaff,Editstaff,Deletestaff,ChangePermission,CancelPermission } = require('../Controller/Admin/createstaff');
-const verifyToken = require("../Middleware/veryfytioken")
+import { Createstaff, Viewstaff, Editstaff, Deletestaff, ChangePermission, CancelPermission } from '../Controller/Admin/createstaff.js';
+import {verifyToken} from '../Middleware/veryfytioken.js';
+
+
 
 // Routes
 router.post('/create-staff',verifyToken,Createstaff);
@@ -13,4 +15,4 @@ router.delete("/delete-staff/:id",verifyToken,Deletestaff)
 router.put("/change-permission/:id",verifyToken,ChangePermission)
 router.put("/cancel-permission/:id",verifyToken,CancelPermission)
 
-module.exports = router;
+export default router;

@@ -44,14 +44,14 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import {  useDispatch } from "react-redux";
-import { Loader } from '../../Context/LoaderContext.jsx';
+import { Loader } from '../../Context/LoaderContext';
 
 import {
   createStaff
-} from "../../Redux/Slice/StaffSlice.jsx";
+} from "../../Redux/Slice/StaffSlice";
 import {
   createStudent
-} from "../../Redux/Slice/StudentSlice.jsx";
+} from "../../Redux/Slice/StudentSlice";
 
 
 const drawerWidth = 240;

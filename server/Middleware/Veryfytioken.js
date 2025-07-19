@@ -1,13 +1,14 @@
 // middleware/verifyToken.js
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+
 
 
 // Replace with your actual secret key
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
-const verifyToken = (req, res, next) => {
+
+export const verifyToken = async(req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log(authHeader,"auth");
+  // console.log(authHeader,"auth");
   
   
   
@@ -23,7 +24,7 @@ const verifyToken = (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET );
     req.user = decoded; // Attach user info to request
     next(); // Proceed to the next middleware or route
   } catch (error) {
@@ -31,4 +32,4 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-module.exports = verifyToken;
+

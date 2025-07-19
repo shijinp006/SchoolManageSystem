@@ -1,6 +1,6 @@
-const Student = require('../../Models/Student');
+import Student from '../../Models/student.js';
 
-const Createstudent = async (req, res) => {
+export const Createstudent = async (req, res) => {
   console.log("Check Student Creations");
 
   try {
@@ -65,7 +65,7 @@ const Createstudent = async (req, res) => {
   }
 };
 
-const Viewstudentsdetails = async (req, res) => {
+export const Viewstudentsdetails = async (req, res) => {
   console.log("Check Viewstudentsdetails");
 
   try {
@@ -83,7 +83,7 @@ const Viewstudentsdetails = async (req, res) => {
   }
 };
 
-const Editstudent = async (req, res) => {
+export const Editstudent = async (req, res) => {
   try {
     const id = req.params.id;
     const { role, Permission } = req.query;
@@ -136,7 +136,7 @@ const Editstudent = async (req, res) => {
   }
 };
 
-const Deletestudent = async (req, res) => {
+export const Deletestudent = async (req, res) => {
   try {
     console.log("Check Delete Student");
 
@@ -167,4 +167,3 @@ const Deletestudent = async (req, res) => {
 
 
 
-module.exports = {Createstudent,Viewstudentsdetails,Editstudent,Deletestudent}

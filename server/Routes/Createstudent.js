@@ -1,13 +1,13 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 // Controller Imports
-const {Createstudent,Viewstudentsdetails,Editstudent,Deletestudent} = require('../Controller/Admin/createstudent');
-const verifyToken = require("../Middleware/veryfytioken")
+import { Createstudent, Viewstudentsdetails, Editstudent, Deletestudent } from '../Controller/Admin/createstudent.js';
+import {verifyToken} from '../Middleware/veryfytioken.js';
 
 router.post("/create-student",verifyToken,Createstudent)
 router.get("/view-student",verifyToken,Viewstudentsdetails)
 router.put("/edit-student/:id",verifyToken,Editstudent)
 router.delete("/delete-student/:id",verifyToken,Deletestudent)
 
-module.exports = router
+export default router;

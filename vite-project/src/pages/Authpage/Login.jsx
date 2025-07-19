@@ -3,7 +3,7 @@ import { Box, Button, Paper, Typography, TextField } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { Loader } from '../../Context/LoaderContext.jsx';
+import { Loader } from '../../Context/LoaderContext';
 export const LoginForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const { showLoader, hideLoader } = Loader();

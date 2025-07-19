@@ -1,7 +1,8 @@
-const Admin = require('../../Models/admin');
-const bcrypt = require('bcryptjs');
+import Admin from '../../Models/admin.js';
+import bcrypt from 'bcryptjs';
 
-const Createstaff = async (req, res) => {
+
+ export const Createstaff = async (req, res) => {
   try {
     console.log("Check Create Staff");
 
@@ -59,7 +60,7 @@ const Createstaff = async (req, res) => {
   }
 };
 
-const Viewstaff = async (req, res) => {
+export const Viewstaff = async (req, res) => {
   try {
     // Fetch all users with role "staff"
     const staffDetails = await Admin.find({ role: "Staff" });
@@ -76,7 +77,7 @@ const Viewstaff = async (req, res) => {
   }
 };
 
-const Editstaff = async (req, res) => {
+export const Editstaff = async (req, res) => {
   try {
     console.log("Check edit Staff");
 
@@ -119,7 +120,7 @@ const Editstaff = async (req, res) => {
 };
 
 
-const Deletestaff = async (req, res) => {
+ export const Deletestaff = async (req, res) => {
   try {
     console.log("Check Delete Staff");
 
@@ -146,7 +147,7 @@ const Deletestaff = async (req, res) => {
 };
 
 //Change Staff Permission
-const ChangePermission = async (req, res) => {
+export const ChangePermission = async (req, res) => {
   console.log("Attempting to change staff permission...");
 
   const { id } = req.params;
@@ -185,7 +186,7 @@ const ChangePermission = async (req, res) => {
 };
 
 
-const CancelPermission = async (req, res) => {
+export const CancelPermission = async (req, res) => {
   console.log("Attempting to cancel staff permission...");
 
   const { id } = req.params;
@@ -217,4 +218,3 @@ const CancelPermission = async (req, res) => {
     return res.status(500).json({ message: "Server error during permission cancellation.", error: error.message });
   }
 };
-module.exports = { Createstaff,Viewstaff,Editstaff,Deletestaff,ChangePermission,CancelPermission };

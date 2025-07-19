@@ -1,8 +1,8 @@
 // controllers/adminController.js
-const Admin = require('../../Models/admin');
-const bcrypt = require('bcryptjs');
+import Admin from '../../Models/admin.js';
+import bcrypt from 'bcryptjs';
 
-const addAdmin = async (req, res) => {
+ export const addAdmin = async (req, res) => {
   try {
     // const { name, email, password, role } = req.body;
     // console.log(name, password, email, role, "Received data");
@@ -66,6 +66,4 @@ const addAdmin = async (req, res) => {
   }
 };
 
-module.exports = {
-  addAdmin,
-};
+

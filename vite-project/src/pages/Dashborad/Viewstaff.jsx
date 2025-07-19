@@ -37,14 +37,14 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import SchoolIcon from "@mui/icons-material/School";
 import GroupIcon from "@mui/icons-material/Group";
 import {  useDispatch } from "react-redux";
-import { Loader } from '../../Context/LoaderContext.jsx';
+import { Loader } from '../../Context/LoaderContext';
 import {
   fetchStaff,
   deleteStaff,
   updateStaff,
   changePermission ,
   cancelPermission 
-} from "../../Redux/Slice/StaffSlice.jsx";
+} from "../../Redux/Slice/StaffSlice";
 
 const drawerWidth = 240;
 

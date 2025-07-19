@@ -1,12 +1,13 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 // Import controllers
-const { addAdmin } = require("../Controller/Admin/addadmin");
-const {login}  =require("../Controller/Admin/adminAuth")
-const verifyToken = require("../Middleware/veryfytioken") 
+import { addAdmin } from '../Controller/Admin/addadmin.js';
+import { login } from '../Controller/Admin/adminAuth.js';
+import {verifyToken} from '../Middleware/veryfytioken.js';
+
 
 router.post("/addadmin",verifyToken, addAdmin);
 router.post("/login", login);
 
-module.exports = router;
+export default router;

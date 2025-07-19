@@ -36,13 +36,13 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import SchoolIcon from "@mui/icons-material/School";
 import GroupIcon from "@mui/icons-material/Group";
 import {  useDispatch } from "react-redux";
-import { Loader } from '../../Context/LoaderContext.jsx';
+import { Loader } from '../../Context/LoaderContext';
 import {
   fetchStudents,
   deleteStudent,
 
   updateStudent,
-} from "../../Redux/Slice/StudentSlice.jsx";
+} from "../../Redux/Slice/StudentSlice";
 const drawerWidth = 240;
 
 

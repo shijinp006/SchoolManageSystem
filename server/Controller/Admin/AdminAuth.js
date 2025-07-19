@@ -1,10 +1,9 @@
-const Admin = require('../../Models/admin');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import Admin from '../../Models/admin.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret'; // Store this in .env securely
 
-const login = async (req, res) => {
+ export const login = async (req, res) => {
   const { email, password } = req.body;
   console.log(email,password,"Recieved Data");
   
@@ -32,7 +31,7 @@ const login = async (req, res) => {
     // Generate JWT Token
     const token = jwt.sign(
       { id: admin._id, email: admin.email, role: admin.role,Permission:admin.Permission },
-      JWT_SECRET,
+      process.env.JWT_SECRET,
       
     );
     // console.log(token,"token");
@@ -58,4 +57,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login };
+

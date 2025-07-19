@@ -1,8 +1,8 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const session = require('express-session');
+import express from 'express'
+import mongoose from 'mongoose';
+import cors from 'cors'
+import dotenv from 'dotenv';
+import session from 'express-session';
 
 
 // ===== Load Environment Variables =====
@@ -14,16 +14,16 @@ app.use(express.json()); // For JSON payloads
 app.use(express.urlencoded({ extended: true })); // For form submissions
 
 
-const Addadmin = require('./Routes/authroute')
-const Createstaff = require('./Routes/createstaff')
-const Createstudent = require('./Routes/createstudent')
+import Addadmin from './Routes/authroute.js';
+import Createstaff from './Routes/createstaff.js';
+import Createstudent from './Routes/createstudent.js';
+
 
 
 
 
 // ===== CORS Options =====
 const FrontendURL = process.env.FrontendURL
-const MONGO_URI = process.env.MONGO_URI
 console.log(FrontendURL);
 
 const corsOptions = {
