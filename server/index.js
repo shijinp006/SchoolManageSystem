@@ -9,16 +9,16 @@ const session = require('express-session');
 dotenv.config();
 
 const app = express();
-app.use(cors(corsOptions)); // Enable CORS with options
+
 app.use(express.json()); // For JSON payloads
 app.use(express.urlencoded({ extended: true })); // For form submissions
 
 
-const Addadmin = require("./Routes/authroute")
-const Createstaff = require("./Routes/createstaff")
-const Createstudent = require("./Routes/createstudent")
+const Addadmin = require('./Routes/authroute')
+const Createstaff = require('./Routes/createstaff')
+const Createstudent = require('./Routes/createstudent')
 
-console.log(__dirname,"dir");
+
 
 
 // ===== CORS Options =====
@@ -31,6 +31,7 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // allow cookies if needed
 };
+app.use(cors(corsOptions)); // Enable CORS with options
 
 app.use(session({
   secret: process.env.JWT_SECRET,
