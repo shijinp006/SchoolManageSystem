@@ -1,4 +1,4 @@
-import Admin from '../../Models/admin.js';
+import Admin from '../../Models/Admin.js';
 import bcrypt from 'bcryptjs';
 
 

@@ -1,5 +1,5 @@
 // controllers/adminController.js
-import Admin from '../../Models/admin.js';
+import Admin from '../../Models/Admin.js';
 import bcrypt from 'bcryptjs';
 
  export const addAdmin = async (req, res) => {

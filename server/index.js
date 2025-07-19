@@ -4,7 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv';
 import session from 'express-session';
 
-// import Addadmin from './Routes/authroute.js';
+import Addadmin from './Routes/authroute.js';
 import Createstaff from './Routes/createstaff.js';
 import Createstudent from './Routes/createstudent.js';
 

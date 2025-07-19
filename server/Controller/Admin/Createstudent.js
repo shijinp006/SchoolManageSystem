@@ -1,4 +1,4 @@
-import Student from '../../Models/student.js';
+import Student from '../../Models/Student.js';
 
 export const Createstudent = async (req, res) => {
   console.log("Check Student Creations");
