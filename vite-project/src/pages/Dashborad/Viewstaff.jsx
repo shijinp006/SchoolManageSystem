@@ -91,7 +91,9 @@ export const ViewStaff = () => {
     fetchData();
   }, [dispatch,showLoader]);
 
-  // Check Matching Data for Editing
+
+
+  
 
   const handleChange = (e) => {
       const { name, value } = e.target;
@@ -100,6 +102,10 @@ export const ViewStaff = () => {
     const handleEdit = (id) =>{
       setStaffId(id)
       setEditform(true)
+
+      const data = staffData.filter((data)=> data._id === id)
+      console.log(data,"data");
+      
      
     }
   
