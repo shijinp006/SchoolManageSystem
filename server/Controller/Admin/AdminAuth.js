@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
  export const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email,password,"Recieved Data");
+
   
 
   try {
@@ -19,7 +19,7 @@ import jwt from 'jsonwebtoken';
     if (!admin) {
       return res.status(404).json({ message: 'Invalid email.' });
     }
-    console.log(admin.role,'role');
+  
     
 
     // Compare password
@@ -34,9 +34,7 @@ import jwt from 'jsonwebtoken';
       process.env.JWT_SECRET,
       
     );
-    // console.log(token,"token");
-    
-    // console.log(admin.Permission,"per");
+  
     
     // Respond with token and user data
     return res.status(200).json({

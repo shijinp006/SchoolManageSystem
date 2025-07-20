@@ -5,8 +5,7 @@ import bcrypt from 'bcryptjs';
  export const addAdmin = async (req, res) => {
   try {
     // const { name, email, password, role } = req.body;
-    // console.log(name, password, email, role, "Received data");
-
+ 
     // // Basic validation
     // if (!name || !email || !password) {
     //   return res.status(400).json({ message: 'Name, email, and password are required.' });
